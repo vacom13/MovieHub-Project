@@ -42,7 +42,7 @@ Used the Simple Recommender to improve the content based recommender.
 1. [The Movies Dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset)
 
 ### Future scope
-Making the model hybrid between content and collaborative filtering or maybe even use nn.
+- Making the model hybrid between content and collaborative filtering or maybe even use nn.
 
-Initial access time of the website can be decreased if the `genre` and `top pick` movies are just hard coded. As the dataset is static.
+- Initial access time of the website can be decreased if the `genre` and `top pick` movies are just hard coded. As the dataset is static.
 
