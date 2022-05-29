@@ -10,7 +10,6 @@ import warnings
 warnings.simplefilter('ignore')
 
 md = pd.read_csv('./Dataset/movies_metadata.csv')
-md.head()
 
 md['genres'] = md['genres'].fillna('[]').apply(literal_eval).apply(
     lambda x: [i['name'] for i in x] if isinstance(x, list) else [])
@@ -146,7 +145,6 @@ def build_chart(genre, percentile=0.85):
         lambda x: (x['vote_count'] / (x['vote_count'] + m) * x['vote_average']) + (m / (m + x['vote_count']) * C),
         axis=1)
     qualified = qualified.sort_values('wr', ascending=False).head(20)
-
     return list(qualified['id'])
 
 
@@ -158,7 +156,7 @@ def improved_recommendations(title):
             idx = idx[0]
         sim_scores = list(enumerate(cosine_sim[idx]))
     else:
-        data = {9082: passed_title.lower()}
+        data = {9082: stemmer.stem(passed_title.lower())}
         ser = pd.Series(data)
         temp_mat = md['soup'].append(ser)
         count_matrix_2 = count.fit_transform(temp_mat)
@@ -171,7 +169,7 @@ def improved_recommendations(title):
     vote_counts = movies[movies['vote_count'].notnull()]['vote_count'].astype('int')
     vote_averages = movies[movies['vote_average'].notnull()]['vote_average'].astype('int')
     C = vote_averages.mean()
-    m = vote_counts.quantile(0.60)
+    m = vote_counts.quantile(0.50)
     qualified = movies[
         (movies['vote_count'] >= m) & (movies['vote_count'].notnull()) & (movies['vote_average'].notnull())]
     qualified['vote_count'] = qualified['vote_count'].astype('int')
@@ -191,11 +189,13 @@ def present(title):
             temp = temp[0]
         temp = md.iloc[temp]['id']
     else:
-        temp=''
+        temp = ''
     return temp
+
 
 def get_suggestions():
     return list(md['title'].str.capitalize())
+
 
 def top_picks():
     return top_pick
