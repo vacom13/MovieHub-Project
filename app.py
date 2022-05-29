@@ -72,7 +72,7 @@ def create_list(genre):
     Creates a list of all the top movies in a genre.
     Parameters
     ----------
-    genre: Type of moive.
+    genre: Type of movie.
 
     Returns
     -------
