@@ -1,0 +1,16 @@
+{% include 'header.html' %}
+<div class="search-results">
+    <h1 class="movie-list-title">Search results</h1>
+    <div class="flex">
+        {% for movie in movies_search %}
+        <a href="{{url_for('movie_details', id=movie[2])}}">
+            <div class="movie-list-item">
+                <div class="overlay"></div>
+                <img class="movie-list-item-img" src="https://image.tmdb.org/t/p/w300{{movie[1]}}" alt="">
+                <div class="movie-list-item-title">{{movie[0]}}</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% include 'footer.html' %}

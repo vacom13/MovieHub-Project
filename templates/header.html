@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--    Font awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+    <!--    Swiper-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+
+    <!--    Boxicons-->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+<!--    AutoComplete-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+    <script type="text/javascript">
+        var films = {{suggestions|tojson}};
+    </script>
+
+    <!--    Custom CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+
+    <title>MovieHub{% if movie %}|{{movie['title']}}{% endif %}{% if movies_search %}|Search Results{% endif %}</title>
+    <style>
+    html,
+      body {
+        position: relative;
+      }
+
+      .test {
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 20px 0;
+        padding: 0;
+      }
+        .swiper {
+        width: 100%;
+      }
+
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        width: auto;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+        .swiper-wrapper{
+            height: auto;
+        }
+      .swiper-slide img {
+        display: block;
+        object-fit: cover;
+      }
+
+    </style>
+</head>
+
+<body>
+<!-- NavBar-->
+<div class="navbar">
+    <div class="navbar-container">
+        <div class="logo-container">
+            <h1 class="logo"><a href="{{url_for('index')}}">MovieHub</a></h1>
+        </div>
+        <div class="profile-container">
+            <form action="{{url_for('search')}}" method="post" id="form">
+                <div class="search-box" id="box">
+                    <input type="search" name="query" id="search-input" autocomplete="off" placeholder="Search movie">
+                    <button type="submit" id="btn"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+{% include 'header.html' %}
+<div class="movie_details" style="margin-top:10px;">
+    <iframe id="ytplayer"
+            src="https://www.youtube.com/embed/{{movie['video_key']}}?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1"
+            type="text/html" frameborder="0" autoplay allowfullscreen
+            data-video="https://www.youtube.com/embed/GAjBzu8ggi0?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1"></iframe>
+    <div class="desc">
+        <h1>{{movie['title']}}</h1>
+        <div class="movie_information">
+            <div><h3>Overview: </h3>
+                <div style="margin-top: 10px; padding-right: 50px;">
+                    {{movie['overview']}}
+                </div>
+            </div>
+            <div class="act_info">
+                <h3>Starring:</h3>
+                <div>
+                    {{movie['actor'][0]}}, {{movie['actor'][1]}}, {{movie['actor'][2]}}
+                </div>
+                <h3>Crew:</h3>
+                <div>{{movie['crew'][0]}}, {{movie['crew'][1]}}, {{movie['crew'][2]}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="similar_movies">
+    <div class="content-container">
+        <div class="movie-list-container">
+            <h1 class="movie-list-title">You might like</h1>
+            <div class="test">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        {% for m in movie['similar_movies'] %}
+                        <div class="swiper-slide">
+                            <a href="{{url_for('movie_details', id=m[2])}}">
+                                <div class="movie-list-item">
+                                    <div class="overlay"></div>
+                                    <img class="movie-list-item-img" src="https://image.tmdb.org/t/p/w300{{m[1]}}"
+                                         alt="">
+                                    <div class="movie-list-item-title">{{m[0]}}</div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% include 'footer.html' %}
