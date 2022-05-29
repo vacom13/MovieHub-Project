@@ -5,7 +5,7 @@ import random
 import os
 
 # Enter Api key
-TMDB_API_KEY = os.getenv('tmdb_api_key', default='c9230db9478a7ec04437999aad76658e')
+TMDB_API_KEY = os.getenv('tmdb_api_key', default='')
 TMBD_MOVIE_DETAILS_PATH = "https://api.themoviedb.org/3/movie/"
 
 PARAMS = {
