@@ -45,7 +45,7 @@ Used the Simple Recommender to improve the content based recommender.
 ![image](https://user-images.githubusercontent.com/36665975/70401457-a7530680-1a55-11ea-9158-97d4e8515ca4.png)
 
 
-### Sources of the datasets 
+### Source of the datasets 
 
 1. [The Movies Dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset)
 
