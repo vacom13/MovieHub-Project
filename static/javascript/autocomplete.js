@@ -1,3 +1,4 @@
+//Using a javascript library to create an autocomplete engine which gives movie options from the present dataset
 new autoComplete({
     data: {                              // Data src [Array, Function, Async] | (REQUIRED)
       src: films,

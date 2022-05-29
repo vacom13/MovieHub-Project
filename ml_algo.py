@@ -9,14 +9,19 @@ import warnings
 
 warnings.simplefilter('ignore')
 
+# For cosine_similarity, used the scikit-learn module
+
+# Reading the meta data of the movies.
 md = pd.read_csv('./Dataset/movies_metadata.csv')
 
+# Data filtering
 md['genres'] = md['genres'].fillna('[]').apply(literal_eval).apply(
     lambda x: [i['name'] for i in x] if isinstance(x, list) else [])
 
 md['year'] = pd.to_datetime(md['release_date'], errors='coerce').apply(
     lambda x: str(x).split('-')[0] if x != np.nan else np.nan)
 
+# Joining dataframes to gather all the data to be used for recommendation system
 links_small = pd.read_csv('./Dataset/links_small.csv')
 links_small = links_small[links_small['tmdbId'].notnull()]['tmdbId'].astype('int')
 credits_file = pd.read_csv('./Dataset/credits.csv')
@@ -24,6 +29,7 @@ keywords = pd.read_csv('./Dataset/keywords.csv')
 keywords['id'] = keywords['id'].astype('int')
 credits_file['id'] = credits_file['id'].astype('int')
 
+# Not so useful rows. Do not have data in the required columns
 md = md.drop([19730, 29503, 35587])
 
 md['id'] = md['id'].astype('int')
@@ -48,6 +54,10 @@ qualified['vote_count'] = qualified['vote_count'].astype('int')
 qualified['vote_average'] = qualified['vote_average'].astype('int')
 
 
+# Simple Recommendations
+# Using the imdb weighted rating formulae
+
+
 def weighted_rating(x):
     v = x['vote_count']
     R = x['vote_average']
@@ -58,8 +68,10 @@ qualified['wr'] = qualified.apply(weighted_rating, axis=1)
 
 qualified = qualified.sort_values('wr', ascending=False).head(20)
 
+# List of top movie tmdb ids
 top_pick = list(qualified['id'])
 
+# More data filtering
 s = md.apply(lambda x: pd.Series(x['genres']), axis=1).stack().reset_index(level=1, drop=True)
 s.name = 'genre'
 gen_md = md.drop('genres', axis=1).join(s)
@@ -78,8 +90,10 @@ def get_director(x):
     return np.nan
 
 
+# From the crew, we will only pick the director as our feature
 md['director'] = md['crew'].apply(get_director)
 
+# From cast, selecting only the top 3 major actors
 md['cast'] = md['cast'].apply(lambda x: [i['name'] for i in x] if isinstance(x, list) else [])
 md['cast'] = md['cast'].apply(lambda x: x[:3] if len(x) >= 3 else x)
 
@@ -88,6 +102,8 @@ md['keywords'] = md['keywords'].apply(lambda x: [i['name'] for i in x] if isinst
 md['cast'] = md['cast'].apply(lambda x: [str.lower(i.replace(" ", "")) for i in x])
 
 md['director'] = md['director'].astype('str').apply(lambda x: str.lower(x.replace(" ", "")))
+
+# Mentioning the director thrice to give it more weight
 md['director'] = md['director'].apply(lambda x: [x, x, x])
 
 s = md.apply(lambda x: pd.Series(x['keywords']), axis=1).stack().reset_index(level=1, drop=True)
@@ -95,8 +111,11 @@ s.name = 'keyword'
 
 s = s.value_counts()
 
+# Keywords that occur once can be removed safely
 s = s[s > 1]
 
+# Will be converting keywords to stem so that for instance,
+# same words like jealousy and jealous would be given same value
 stemmer = SnowballStemmer('english')
 
 
@@ -129,6 +148,7 @@ titles = md['title']
 indices = pd.Series(md.index, index=md['title'])
 
 
+# Simple Genre Chart Recommender
 def build_chart(genre, percentile=0.85):
     df = gen_md[gen_md['genre'] == genre]
     vote_counts = df[df['vote_count'].notnull()]['vote_count'].astype('int')
@@ -148,6 +168,8 @@ def build_chart(genre, percentile=0.85):
     return list(qualified['id'])
 
 
+# Using the keywords, overview, director, actors and genres, this function calculates the similarity score.
+# The content based recommendation function
 def improved_recommendations(title):
     passed_title = " ".join(title.lstrip().rstrip().split()).title()
     if passed_title in indices:
@@ -182,6 +204,16 @@ def improved_recommendations(title):
 
 
 def present(title):
+    """
+    Check if the title is present in the dataset used.
+    Parameters
+    ----------
+    title: Could be Movie name or keywords.
+
+    Returns
+    -------
+    Index of the movie if present or an empty string.
+    """
     passed_title = " ".join(title.lstrip().rstrip().split()).title()
     if passed_title in indices:
         temp = indices[passed_title]
@@ -194,8 +226,20 @@ def present(title):
 
 
 def get_suggestions():
+    """
+
+    Returns
+    -------
+    List of all the movie titles for the autoComplete engine.
+    """
     return list(md['title'].str.capitalize())
 
 
 def top_picks():
+    """
+
+    Returns
+    -------
+    List of top movies ids.
+    """
     return top_pick

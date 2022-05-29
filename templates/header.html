@@ -14,16 +14,19 @@
     <!--    Boxicons-->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
-<!--    AutoComplete-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+    <!--    AutoComplete-->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
     <script type="text/javascript">
         var films = {{suggestions|tojson}};
+
     </script>
 
     <!--    Custom CSS-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 
     <title>MovieHub{% if movie %}|{{movie['title']}}{% endif %}{% if movies_search %}|Search Results{% endif %}</title>
+    <!--    Custom styling for the carousel-->
     <style>
     html,
       body {
@@ -67,6 +70,7 @@
         display: block;
         object-fit: cover;
       }
+
 
     </style>
 </head>

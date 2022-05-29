@@ -1,10 +1,12 @@
 {% include 'header.html' %}
 <div class="movie_details" style="margin-top:10px;">
+    <!--    Youtube player for movie preview-->
     <iframe id="ytplayer"
             src="https://www.youtube.com/embed/{{movie['video_key']}}?rel=0&autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=0"
             type="text/html" frameborder="0" autoplay allowfullscreen
             data-video="https://www.youtube.com/embed/{{movie['video_key']}}rel=0?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=0"></iframe>
     <div class="desc">
+        <!--        Movie Details-->
         <h1>{{movie['title']}}</h1>
         <div class="movie_information">
             <div><h3>Overview: </h3>
@@ -23,6 +25,7 @@
         </div>
     </div>
 </div>
+<!-- All recommended movies using the content based recommender-->
 <div class="similar_movies">
     <div class="content-container">
         <div class="movie-list-container">

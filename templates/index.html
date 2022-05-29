@@ -5,14 +5,18 @@
              style="background-size: cover; background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('/static/img/dark_knight.jpg');">
             <img class="featured-title" src="/static/img/batman.png" alt="">
             <h1>The Dark Knight Rises</h1>
-            <a href="{{url_for('movie_details', id=49026)}}"><button class="featured-button">WATCH</button></a>
+            <a href="{{url_for('movie_details', id=49026)}}">
+                <button class="featured-button">WATCH</button>
+            </a>
         </div>
+        <!--        Loops through genres-->
         {% for key in movies %}
         <div class="movie-list-container home_container">
             <h1 class="movie-list-title item">Top {{key}}</h1>
             <div class="test">
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
+                        <!--                        Loops through top movies of a genre to create the menu-->
                         {% for movie in movies[key] %}
                         <div class="swiper-slide">
                             <a href="{{url_for('movie_details', id=movie[2])}}">
