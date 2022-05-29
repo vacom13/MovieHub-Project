@@ -4,7 +4,7 @@ import requests
 import random
 
 TMDB_API_KEY = "c9230db9478a7ec04437999aad76658e"
-TMBM_MOVIE_DETAILS_PATH = "https://api.themoviedb.org/3/movie/"
+TMBD_MOVIE_DETAILS_PATH = "https://api.themoviedb.org/3/movie/"
 
 PARAMS = {
     'api_key': TMDB_API_KEY
@@ -29,7 +29,7 @@ def recommender(query, **kwargs):
         similar_movies.append(kwargs['first'])
     similar_movies_id = ml_algo.improved_recommendations(query)
     for i in similar_movies_id:
-        request = requests.get(TMBM_MOVIE_DETAILS_PATH + str(i), params=PARAMS).json()
+        request = requests.get(TMBD_MOVIE_DETAILS_PATH + str(i), params=PARAMS).json()
         similar_movies.append((request['title'], request['poster_path'], i))
     return similar_movies
 
@@ -43,7 +43,7 @@ comedy = chart_builder('Comedy')
 def create_list(genre):
     temp_list = []
     for i in genre:
-        request = requests.get(TMBM_MOVIE_DETAILS_PATH + str(i), params=PARAMS).json()
+        request = requests.get(TMBD_MOVIE_DETAILS_PATH + str(i), params=PARAMS).json()
         temp_list.append((request['title'], request['poster_path'], i))
     return temp_list
 
@@ -72,9 +72,9 @@ def index():
 @app.route("/movie/<int:id>")
 def movie_details(id):
     movie = {}
-    details = requests.get(TMBM_MOVIE_DETAILS_PATH + str(id), params=PARAMS).json()
-    vid_request = requests.get(TMBM_MOVIE_DETAILS_PATH + str(id) + '/videos', params=PARAMS).json()
-    crew = requests.get(TMBM_MOVIE_DETAILS_PATH + str(id) + '/credits', params=PARAMS).json()
+    details = requests.get(TMBD_MOVIE_DETAILS_PATH + str(id), params=PARAMS).json()
+    vid_request = requests.get(TMBD_MOVIE_DETAILS_PATH + str(id) + '/videos', params=PARAMS).json()
+    crew = requests.get(TMBD_MOVIE_DETAILS_PATH + str(id) + '/credits', params=PARAMS).json()
     movie['title'] = details['title']
     movie['overview'] = details['overview']
     movie['video_key'] = vid_request['results'][0]['key']
@@ -99,7 +99,7 @@ def search_results(query):
     idx = ml_algo.present(query)
     first = ''
     if idx != '':
-        request = requests.get(TMBM_MOVIE_DETAILS_PATH + str(idx), params=PARAMS).json()
+        request = requests.get(TMBD_MOVIE_DETAILS_PATH + str(idx), params=PARAMS).json()
         first = (request['title'], request['poster_path'], idx)
     if first:
         movie_list = recommender(query, first=first)

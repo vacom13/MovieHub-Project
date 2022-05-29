@@ -1,9 +1,9 @@
 {% include 'header.html' %}
 <div class="movie_details" style="margin-top:10px;">
     <iframe id="ytplayer"
-            src="https://www.youtube.com/embed/{{movie['video_key']}}?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1"
+            src="https://www.youtube.com/embed/{{movie['video_key']}}?rel=0&autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=0"
             type="text/html" frameborder="0" autoplay allowfullscreen
-            data-video="https://www.youtube.com/embed/GAjBzu8ggi0?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=1"></iframe>
+            data-video="https://www.youtube.com/embed/{{movie['video_key']}}rel=0?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&modestbranding=1&controls=0&showinfo=1&mute=0"></iframe>
     <div class="desc">
         <h1>{{movie['title']}}</h1>
         <div class="movie_information">
