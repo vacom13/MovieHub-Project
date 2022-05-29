@@ -9,10 +9,6 @@ Content Based Recommender System recommends movies similar to the movie user lik
 
 The details of the movies(title, genre, runtime, rating, poster, etc) are fetched using an API by TMDB, https://www.themoviedb.org/documentation/api,
 
-## How to get the API key?
-
-Create an account in https://www.themoviedb.org/, click on the `API` link from the left hand sidebar in your account settings and fill all the details to apply for API key. If you are asked for the website URL, just give "NA" if you don't have one. You will see the API key in your `API` sidebar once your request is approved.
-
 ## How to run the project?
 
 1. Clone or download this repository to your local machine.
@@ -44,4 +40,9 @@ Used the Simple Recommender to improve the content based recommender.
 ### Source of the datasets 
 
 1. [The Movies Dataset](https://www.kaggle.com/rounakbanik/the-movies-dataset)
+
+### Future scope
+Making the model hybrid between content and collaborative filtering or maybe even use nn.
+
+Initial access time of the website can be decreased if the `genre` and `top pick` movies are just hard coded. As the dataset is static.
 
