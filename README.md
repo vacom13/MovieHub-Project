@@ -9,9 +9,9 @@ Content Based Recommender System recommends movies similar to the movie user lik
 
 The details of the movies(title, genre, runtime, rating, poster, etc) are fetched using an API by TMDB, https://www.themoviedb.org/documentation/api,
 
-Check out the live demo: https://mrswsa.herokuapp.com/
+Check out the live demo:
 
-Link to youtube demo: https://www.youtube.com/watch?v=dhVePtyECFw
+Link to youtube demo:
 
 ## How to get the API key?
 
