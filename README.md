@@ -43,5 +43,5 @@ Used the Simple Recommender to improve the content based recommender.
 ### Future scope
 - Making the model hybrid between content and collaborative filtering or maybe even use nn.
 
-- Initial access time of the website can be decreased if the `genre` and `top pick` movies are just hard coded. As the dataset is static.
+- Would be better to create an api for accessing the recommendation system separately.
 
