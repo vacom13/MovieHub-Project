@@ -45,3 +45,5 @@ Used the Simple Recommender to improve the content based recommender.
 
 - Would be better to create an api for accessing the recommendation system separately.
 
+- A database which gets updated with newer movies could be used.
+
